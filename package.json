@@ -1,0 +1,25 @@
+{
+  "name": "07-store",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/db": "^0.14.9",
+    "@astrojs/netlify": "^6.2.4",
+    "@auth/core": "^0.37.4",
+    "@tailwindcss/vite": "^4.0.17",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^10.0.0",
+    "astro": "^5.5.5",
+    "auth-astro": "^4.2.0",
+    "bcryptjs": "^3.0.2",
+    "sweetalert2": "^11.17.2",
+    "tailwindcss": "^4.0.17",
+    "uuid": "^11.1.0"
+  }
+}
