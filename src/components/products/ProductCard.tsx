@@ -1,4 +1,4 @@
-import type { ProductWithImages } from "@/pages/interfaces";
+import type { ProductWithImages } from "@/interfaces";
 import { useState } from "react";
 
 

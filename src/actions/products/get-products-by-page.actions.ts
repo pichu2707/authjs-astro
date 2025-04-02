@@ -2,7 +2,7 @@
 
 
 
-import type { ProductWithImages } from '@/pages/interfaces';
+import type { ProductWithImages } from '@/interfaces';
 import { defineAction } from 'astro:actions';
 import { z } from 'astro:content';
 import { count, db, Product, ProductImage, eq, sql } from 'astro:db';

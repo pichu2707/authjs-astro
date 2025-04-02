@@ -1,0 +1,38 @@
+---
+
+import { loadProductsFromCart } from "@/actions/cart/load-products-from-cart.actions";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { actions } from "astro:actions";
+
+
+export const prerender = false;
+
+const cartItems = Astro.cookies.get('cart')?.json() ?? [];
+console.log(cartItems)
+
+const items = await Astro.getActionResult(
+  actions.loadProductsFromCart as unknown as (
+    (input: any) => Promise<any>
+  ) & { 
+    queryString: string; 
+    orThrow: (input: any) => Promise<unknown>; 
+  }
+);
+console.log(items)
+
+---
+
+<MainLayout title="Carrito de comprasa">
+    <h1 class="text-3xl">Carrito de compras</h1>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {
+        cartItems.map((product) => (
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <p>{product.productId}</p>
+                <p class="text-gray-700">Talla: <span class="text-3xl font-bold">{product.size}</span></p>
+                <p class="text-gray-700">Cantidad: {product.quantity}</p>
+            </div>
+        ))}
+
+</MainLayout>

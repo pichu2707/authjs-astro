@@ -1,10 +1,11 @@
 import {loginUser, logout, registerUser} from './auth';
+import { loadProductsFromCart } from './cart/load-products-from-cart.actions';
 import { getProductsByPage } from './products/get-products-by-page.actions';
 import { getProductBySlug } from './products/get-products-by-slug.actions';
 
 export const server = {
     //actions
-
+    
     //auth
     loginUser,
     logout,
@@ -13,4 +14,7 @@ export const server = {
     //products
     getProductsByPage,
     getProductBySlug,
+
+    //cart
+    loadProductsFromCart,
 };

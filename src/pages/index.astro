@@ -18,8 +18,11 @@ if (error) {
 	return Astro.redirect('/')
 }
 
-
 const { products, totalPages } = data;
+
+if ( data.products.length === 0 ) {
+	return Astro.redirect(`/?page=${ totalPages }`)
+}
 
 
 ---
