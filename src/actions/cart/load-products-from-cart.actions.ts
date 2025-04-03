@@ -42,6 +42,10 @@ export const loadProductsFromCart = defineAction({
         .from(Product)
         .innerJoin( ProductImage, eq(Product.id, ProductImage.productId) )
         .where( inArray(Product.id, productIds) )
+        
+        console.log("dbProducts",dbProducts);
+
+
         return cart.map( item => {;
             const dbProduct = dbProducts.find( p => p.Product.id === item.productId);
 

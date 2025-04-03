@@ -32,7 +32,9 @@ export class CartCookiesClient {
             item => !(item.productId === productId && item.size === size)
         );
 
-        Cookies.set('cart', JSON.stringify(cart));
+        console.log('updatedCart', updatedCart);
+
+        Cookies.set('cart', JSON.stringify(updatedCart));
 
         return updatedCart;
     }

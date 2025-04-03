@@ -103,9 +103,18 @@ const { product, images } = data;
 </style>
 
 <script>
+import { itemsInCart } from "@/store/cart.store";
 import { CartCookiesClient } from "@/utils";
+import { navigate } from "astro:transitions/client";
 
+document.addEventListener('astro:page-load', () => {
+  
   const sizeElements = document.querySelectorAll('li');
+  
+  if ( sizeElements.length === 0 ) {
+    return;
+  }
+  
 
   sizeElements.forEach( liElement => 
     liElement.addEventListener('click', (e) => {
@@ -141,13 +150,19 @@ import { CartCookiesClient } from "@/utils";
 
     addToCardButton.disabled = true;
 
-    CartCookiesClient.addItem({
+    const cart = CartCookiesClient.addItem({
       productId: productIdInput.value,
       size: size,
       quantity: quantity,
     })
 
+    itemsInCart.set(cart.length);
+    console.log(itemsInCart.get());
+    
     //TODO: Cambiar cuando tengamos los ViewTransitions
-    window.location.href = '/cart';
+    // window.location.href = '/cart';
+    await navigate('/cart');
   }); 
+
+});
 </script>

@@ -1,10 +1,32 @@
+import { itemsInCart } from "@/store/cart.store";
+import { CartCookiesClient } from "@/utils";
+import { useStore } from "@nanostores/react";
+import { useEffect } from "react";
+
+
 export const CartCounter = () => {
+
+    const $itemsInCart = useStore(itemsInCart);
+
+    useEffect(() => {
+        const cart = CartCookiesClient.getCart();
+        itemsInCart.set(cart.length);
+    });
+
     return (
         <a href="/cart" className="relative inline-block">
+
+
+{
+    ($itemsInCart > 0) && (
+
             <span className="absolute -top-2 -right-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
-                0
+                { $itemsInCart }
 
             </span>
+    )
+}
+
 
 <svg 
 xmlns="http://www.w3.org/2000/svg" 
@@ -17,3 +39,4 @@ viewBox="0 0 32 32"
         </a>
     );
 };
+
