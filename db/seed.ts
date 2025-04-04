@@ -14,7 +14,7 @@ export default async function seed() {
 
 
 	const johnDoe = {
-		id: UUID(),
+		id: 'ABC-123-JHON', //UUID(), --> lo ponemos así en local para que no cambie el id y nos falle al cortar o levantar el servidor local
 		name: 'John Doe',
 		email: 'john.doe@google.com',
 		password: bcrypt.hashSync('123456'),
@@ -22,7 +22,7 @@ export default async function seed() {
 	};
 
 	const janeDoe = {
-		id: UUID(),
+		id: 'ABC-123-JANE', //UUID(), --> lo ponemos así en local para que no cambie el id y nos falle al cortar o levantar el servidor local
 		name: 'Jane Doe',
 		email: 'jane.doe@google.com',
 		password: bcrypt.hashSync('123456'),

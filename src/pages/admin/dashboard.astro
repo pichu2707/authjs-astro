@@ -1,0 +1,70 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+
+import { actions } from 'astro:actions';
+import Paginations from '@/components/shared/Paginations.astro';
+import ProductImage from "@/components/products/ProductImage.astro";
+
+export const prerender = false;
+
+const searchParams = Astro.url.searchParams;
+const pageParam = Number(searchParams.get("page") ) ?? 1;
+
+
+const {data, error} = await Astro.callAction(actions.getProductsByPage, {
+	page: pageParam,
+}); 
+
+if (error) {
+	return Astro.redirect('/')
+}
+
+const { products, totalPages } = data;
+
+---
+
+<MainLayout title="Panel de administrador">
+    <h1>
+        Dashboard
+    </h1>
+    <p>Listado de productos</p>
+
+    <table class="w-full mt-5">
+        <thead>
+            <tr>
+                <th class="text-left">Imagen</th>
+                <th class="text-left">Título</th>
+                <th class="text-left">Precio</th>
+                <th class="text-left">Inventario</th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                products.map( (product) =>
+                    <tr>
+                        <td>
+                            {/* Esto dará error si el producto no tiene imagen */}
+                            <ProductImage
+                            src={ product.images.split(',')[0]}
+                            alt={ product.title }
+                            className="w-16 h-16"/>
+                        </td>
+                        <td>
+                            <a 
+                            class="hover:underline cursor-pointer"
+                            href={`/admin/products/${product.slug}`}
+                            >
+                                {/* data-astro-prefetch="load" */}
+                                {product.title}
+                            </a>
+                        </td>
+                        <td>{product.price}</td>
+                        <td>{product.stock}</td>
+                    </tr>
+                )
+            }
+        </tbody>
+    </table>
+    <Paginations totalPages={totalPages}/>
+</MainLayout>

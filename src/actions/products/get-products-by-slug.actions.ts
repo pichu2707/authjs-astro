@@ -10,14 +10,18 @@ export const getProductBySlug = defineAction({
     
     handler: async (slug) => {
         const [product] = await db
-        .select().from(Product)
+        .select()
+        .from(Product)
         .where(eq(Product.slug, slug));
 
     if ( !product) {
         throw new Error(`Product with slug ${slug} not found`);
     }
 
-    const images = await db.select().from(ProductImage).where(eq(ProductImage.productId, product.id));
+    const images = await db
+    .select()
+    .from(ProductImage)
+    .where(eq(ProductImage.productId, product.id));
 
     return {
         product: product,
