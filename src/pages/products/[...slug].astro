@@ -29,12 +29,11 @@ const { product, images } = data;
 <MainLayout
   title={product.title}
   description={product.description}
-  image={images}
 >
   <h1>{product.title}</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-6">
-    <ProductSlideshow images={images} />
+    <ProductSlideshow images={images.map(i => i.image)} />
 
     <section>
       <h2 class="text-2xl font-bold">{product.title}</h2>
@@ -129,6 +128,8 @@ document.addEventListener('astro:page-load', () => {
   let quantity = 1;
 
   const [ decrementButton, incrementButton, addToCardButton ] = document.querySelectorAll('button');
+
+  if ( !incrementButton || !quantityInput ) return;
 
   incrementButton.addEventListener('click', () => {
     quantity = Math.min(quantity + 1, 5)

@@ -1,13 +1,13 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 
-cloudinary.config({
-    
-    cloud_name : import.meta.env.CLOUDINARY_CLOUD_NAME,
-    api_key : import.meta.env.CLOUDINARY_API_KEY,
-    api_scret : import.meta.env.CLOUDINARY_API_SECRET,
-});
 
+    // Configuration
+    cloudinary.config({ 
+        cloud_name: 'dgrfiq2y4', 
+        api_key: '357732465226633', 
+        api_secret: import.meta.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
+    });
 export class ImageUpload {
     
     static async upload( file: File ){
@@ -17,12 +17,25 @@ export class ImageUpload {
         const imageType = file.type.split('/')[1]; //image/png
 
         const resp = await cloudinary.uploader.upload(
-            `data:${file.type};base64,${base64Image}`,
+            `data:image/${imageType};base64,${base64Image}`,
         );
         console.log(resp);
 
-        return 'https://mi.sitio.web/abc.png';
+        return resp.secure_url;
     }
 
+    static async delete( image:string ) {
+        try {
+        const imageName = image.split('/').pop() ?? '';
+        const imageId = imageName.split('.')[0];
 
+        const reps = await cloudinary.uploader.destroy(imageId);
+            console.log('delete resp', reps);
+        
+        return true;
+    } catch (error) {
+        console.log('delete error', error);
+        return false;    
+        }
+    }
 }
